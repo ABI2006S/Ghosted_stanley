@@ -1,0 +1,153 @@
+[build]
+  publish = "out"
+  command = "npm run build:netlify"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "10"
+  NODE_OPTIONS = "--max-old-space-size=6144"
+  NETLIFY_SKIP_EDGE_HANDLERS_PLUGIN = "true"
+
+# Enhanced static file optimization
+[[headers]]
+  for = "/audio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, HEAD, OPTIONS"
+    Access-Control-Allow-Headers = "Range, Content-Range, Content-Type, Accept, Origin"
+    Accept-Ranges = "bytes"
+    Vary = "Accept-Encoding"
+
+[[headers]]
+  for = "*.mp3"
+  [headers.values]
+    Content-Type = "audio/mpeg"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+    Accept-Ranges = "bytes"
+
+[[headers]]
+  for = "*.ogg"
+  [headers.values]
+    Content-Type = "audio/ogg"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+    Accept-Ranges = "bytes"
+
+[[headers]]
+  for = "*.wav"
+  [headers.values]
+    Content-Type = "audio/wav"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+    Accept-Ranges = "bytes"
+
+# Image optimization
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "image/png"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "image/jpeg"
+
+[[headers]]
+  for = "*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "image/jpeg"
+
+# JavaScript and CSS optimization
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "text/css"
+
+# HTML files with no-cache
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Enhanced security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), autoplay=(self)"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# SPA routing with fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Audio file fallbacks to prevent 404s
+[[redirects]]
+  from = "/audio/ambient.mp3"
+  to = "/audio/ambient.mp3"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/audio/boot.mp3"
+  to = "/audio/boot.mp3"
+  status = 200
+  force = false
+
+# Preload critical resources
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Link = "</audio/click.mp3>; rel=preload; as=audio, </audio/boot.mp3>; rel=preload; as=audio, </audio/success.mp3>; rel=preload; as=audio"
+
+# Build optimizations
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true
+
+# Functions configuration
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Plugin configuration
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Edge functions (optional)
+[[edge_functions]]
+  function = "audio-headers"
+  path = "/audio/*"

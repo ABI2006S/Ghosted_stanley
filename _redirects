@@ -1,0 +1,20 @@
+# SPA routing - redirect all routes to index.html
+/*    /index.html   200
+
+# Audio file fallbacks (if needed)
+/audio/ambient.mp3    /audio/ambient.mp3    200
+/audio/boot.mp3       /audio/boot.mp3       200
+/audio/typing.mp3     /audio/typing.mp3     200
+/audio/floppy.mp3     /audio/floppy.mp3     200
+/audio/success.mp3    /audio/success.mp3    200
+/audio/click.mp3      /audio/click.mp3      200
+/audio/open.mp3       /audio/open.mp3       200
+/audio/close.mp3      /audio/close.mp3      200
+/audio/scan.mp3       /audio/scan.mp3       200
+/audio/error.mp3      /audio/error.mp3      200
+/audio/shutdown.mp3   /audio/shutdown.mp3   200
+/audio/glitch.mp3     /audio/glitch.mp3     200
+/audio/reboot.mp3     /audio/reboot.mp3     200
+
+# Fallback for missing audio files (prevents 404s)
+/audio/*              /audio/error.mp3      200

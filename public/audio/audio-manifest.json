@@ -1,0 +1,140 @@
+{
+  "version": "2.0.0",
+  "description": "Stanley's Desktop 1998™ Audio Manifest - Specified Files Only",
+  "lastUpdated": "2024-01-01",
+  "totalFiles": 13,
+  "audioFiles": {
+    "ambient": {
+      "filename": "ambient.mp3",
+      "description": "Background ambient computer hum",
+      "expectedDuration": "10-30s",
+      "loop": true,
+      "volume": 0.3,
+      "category": "background",
+      "operations": ["desktop_background"]
+    },
+    "boot": {
+      "filename": "boot.mp3",
+      "description": "System startup chime",
+      "expectedDuration": "2s",
+      "loop": false,
+      "volume": 0.8,
+      "category": "system",
+      "operations": ["system_boot", "landing_page_boot"]
+    },
+    "typing": {
+      "filename": "typing.mp3",
+      "description": "Mechanical keyboard typing sounds",
+      "expectedDuration": "1s",
+      "loop": false,
+      "volume": 0.4,
+      "category": "interaction",
+      "operations": ["boot_sequence_text", "trustpod_typing", "text_display"]
+    },
+    "floppy": {
+      "filename": "floppy.mp3",
+      "description": "Floppy disk drive spinning/reading",
+      "expectedDuration": "2.5s",
+      "loop": false,
+      "volume": 0.5,
+      "category": "hardware",
+      "operations": ["boot_drive_scan", "disk_operations"]
+    },
+    "success": {
+      "filename": "success.mp3",
+      "description": "Operation completion success",
+      "expectedDuration": "1.5s",
+      "loop": false,
+      "volume": 0.7,
+      "category": "feedback",
+      "operations": ["boot_complete", "cleaning_complete", "operation_success"]
+    },
+    "click": {
+      "filename": "click.mp3",
+      "description": "UI button/icon clicks",
+      "expectedDuration": "0.3s",
+      "loop": false,
+      "volume": 0.6,
+      "category": "interaction",
+      "operations": ["icon_click", "button_click", "menu_click"]
+    },
+    "open": {
+      "filename": "open.mp3",
+      "description": "Window opening sound",
+      "expectedDuration": "0.8s",
+      "loop": false,
+      "volume": 0.5,
+      "category": "interface",
+      "operations": ["window_open", "application_launch"]
+    },
+    "close": {
+      "filename": "close.mp3",
+      "description": "Window closing sound",
+      "expectedDuration": "0.6s",
+      "loop": false,
+      "volume": 0.5,
+      "category": "interface",
+      "operations": ["window_close", "application_exit"]
+    },
+    "scan": {
+      "filename": "scan.mp3",
+      "description": "Hard drive scanning/processing",
+      "expectedDuration": "3s",
+      "loop": false,
+      "volume": 0.4,
+      "category": "hardware",
+      "operations": ["desk_cleaning", "system_scanning", "processing"]
+    },
+    "error": {
+      "filename": "error.mp3",
+      "description": "System errors and crashes",
+      "expectedDuration": "1.2s",
+      "loop": false,
+      "volume": 0.6,
+      "category": "feedback",
+      "operations": ["system_crash", "boot_crash", "glitch_error", "all_crashes"]
+    },
+    "shutdown": {
+      "filename": "shutdown.mp3",
+      "description": "System shutdown sequence",
+      "expectedDuration": "3s",
+      "loop": false,
+      "volume": 0.8,
+      "category": "system",
+      "operations": ["system_shutdown"]
+    },
+    "glitch": {
+      "filename": "glitch.mp3",
+      "description": "Digital glitches and static",
+      "expectedDuration": "0.8s",
+      "loop": false,
+      "volume": 0.5,
+      "category": "effects",
+      "operations": ["visual_glitch", "boot_glitch", "landing_glitch", "corruption"]
+    },
+    "reboot": {
+      "filename": "reboot.mp3",
+      "description": "System restart sound",
+      "expectedDuration": "2.5s",
+      "loop": false,
+      "volume": 0.8,
+      "category": "system",
+      "operations": ["system_restart"]
+    }
+  },
+  "operationMapping": {
+    "boot_sequence": ["boot", "floppy", "scan", "typing", "success", "error", "glitch"],
+    "desktop_operations": ["ambient", "click", "open", "close"],
+    "system_actions": ["reboot", "shutdown"],
+    "applications": ["typing", "scan", "success"],
+    "crashes_glitches": ["error", "glitch"],
+    "landing_page": ["boot", "glitch", "success"]
+  },
+  "deployment": {
+    "platform": "Netlify",
+    "optimization": "Web-optimized MP3 files",
+    "caching": "CDN cached with long expiry",
+    "preloading": "Loaded on first user interaction",
+    "totalSize": "Estimated < 5MB total"
+  }
+}
